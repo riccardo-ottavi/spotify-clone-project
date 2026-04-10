@@ -1,0 +1,46 @@
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+require('dotenv').config();
+
+const songRouter = require('./routers/songRouter');
+const artistRouter = require('./routers/artistRouter');
+const albumRouter = require('./routers/albumRouter');
+const playlistRouter = require('./routers/playlistRouter');
+const uploadRouter = require('./routers/uploadRouter');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  methods: ['GET','POST','PATCH','DELETE'],
+  credentials: true
+}));
+
+app.use(express.json());
+
+// API routes
+app.use('/songs', songRouter);
+app.use('/artists', artistRouter);
+app.use('/albums', albumRouter);
+app.use('/playlists', playlistRouter);
+app.use('/upload', uploadRouter);
+
+// Serve static files della build front-end
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/images', express.static(path.join(__dirname, 'dist', 'images')));
+app.use('/audio', express.static(path.join(__dirname, 'dist', 'audio')));
+
+// Fallback solo per richieste HTML (evita di intercettare JS/CSS)
+app.use((req, res, next) => {
+  if (req.method === 'GET' && !req.path.startsWith('/songs') && !req.path.startsWith('/artists') && !req.path.startsWith('/albums') && !req.path.startsWith('/playlists') && !req.path.startsWith('/upload') && !req.path.match(/\.\w+$/)) {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  } else {
+    next();
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
