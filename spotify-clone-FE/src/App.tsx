@@ -10,7 +10,7 @@ import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <AudioPlayerProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
