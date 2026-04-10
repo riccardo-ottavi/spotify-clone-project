@@ -13,12 +13,19 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: "https://phenomenal-mochi-c6f252.netlify.app/",
+  origin: "https://phenomenal-mochi-c6f252.netlify.app",
   methods: ['GET','POST','PATCH','DELETE'],
   credentials: true
 }));
 
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "Backend is running"
+  });
+});
 
 // API routes
 app.use('/songs', songRouter);
@@ -39,13 +46,6 @@ app.use((req, res, next) => {
   } else {
     next();
   }
-});
-
-app.get("/", (req, res) => {
-  res.json({
-    status: "ok",
-    message: "Backend is running"
-  });
 });
 
 app.listen(PORT, () => {
