@@ -16,7 +16,7 @@ async function index(req, res) {
       ORDER BY a.id;
     `;
 
-    const [results] = await db.query(sql);
+    // const [results] = await db.query(sql);
 
     const albums = results.map(row => ({
       ...row,

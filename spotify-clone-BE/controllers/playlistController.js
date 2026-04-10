@@ -3,7 +3,7 @@ const db = require('../data/db');
 // --- Playlists ---
 const index = async (req, res) => {
   try {
-    const [results] = await db.query('SELECT * FROM playlists');
+    // const [results] = await db.query('SELECT * FROM playlists');
     res.json(results);
   } catch (err) {
     console.error(err);
@@ -16,7 +16,7 @@ const show = async (req, res) => {
   if (isNaN(id)) return res.status(400).json({ message: 'Invalid playlist ID' });
 
   try {
-    const [results] = await db.query('SELECT * FROM playlists WHERE id = ?', [id]);
+    // const [results] = await db.query('SELECT * FROM playlists WHERE id = ?', [id]);
     if (results.length === 0) return res.status(404).json({ message: 'Playlist not found' });
     res.json(results[0]);
   } catch (err) {
@@ -29,11 +29,11 @@ const create = async (req, res) => {
   const { name, image, notes } = req.body;
   const sql = 'INSERT INTO playlists (name, image, notes) VALUES (?, ?, ?)';
   try {
-    const [result] = await db.query(sql, [
-      name || 'Nuova playlist',
-      image || '/images/new-playlist.png',
-      notes || ''
-    ]);
+    //const [result] = await db.query(sql, [
+      //name || 'Nuova playlist',
+      //image || '/images/new-playlist.png',
+      //notes || ''
+    //]);
     res.status(201).json({ id: result.insertId, name, image, notes });
   } catch (err) {
     console.error(err);
@@ -57,7 +57,7 @@ const update = async (req, res) => {
   values.push(id);
 
   try {
-    const [result] = await db.query(sql, values);
+    // const [result] = await db.query(sql, values);
     if (result.affectedRows === 0) return res.status(404).json({ message: 'Playlist not found' });
 
     const [updated] = await db.query('SELECT * FROM playlists WHERE id = ?', [id]);
@@ -73,7 +73,7 @@ const destroy = async (req, res) => {
   if (isNaN(id)) return res.status(400).json({ message: 'Invalid playlist ID' });
 
   try {
-    const [result] = await db.query('DELETE FROM playlists WHERE id = ?', [id]);
+    // const [result] = await db.query('DELETE FROM playlists WHERE id = ?', [id]);
     if (result.affectedRows === 0) return res.status(404).json({ message: 'Playlist not found' });
     res.status(204).send();
   } catch (err) {
@@ -107,7 +107,7 @@ const addSong = async (req, res) => {
   if (isNaN(playlistId) || !song_id) return res.status(400).json({ message: 'playlist_id o song_id mancante' });
 
   try {
-    await db.query('INSERT INTO playlist_songs (playlist_id, song_id) VALUES (?, ?)', [playlistId, song_id]);
+    // await db.query('INSERT INTO playlist_songs (playlist_id, song_id) VALUES (?, ?)', [playlistId, song_id]);
     res.status(201).json({ playlistId, song_id });
   } catch (err) {
     console.error(err);
@@ -121,7 +121,7 @@ const removeSong = async (req, res) => {
   if (isNaN(playlistId) || isNaN(songId)) return res.status(400).json({ message: 'playlist_id o song_id non valido' });
 
   try {
-    const [result] = await db.query('DELETE FROM playlist_songs WHERE playlist_id = ? AND song_id = ?', [playlistId, songId]);
+    // const [result] = await db.query('DELETE FROM playlist_songs WHERE playlist_id = ? AND song_id = ?', [playlistId, songId]);
     if (result.affectedRows === 0) return res.status(404).json({ message: 'Canzone non trovata nella playlist' });
     res.status(204).send();
   } catch (err) {

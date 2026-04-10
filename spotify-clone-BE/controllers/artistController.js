@@ -15,7 +15,7 @@ async function show(req, res) {
   if (isNaN(id)) return res.status(400).json({ message: 'Invalid artist ID' });
 
   try {
-    const [results] = await db.query('SELECT * FROM artists WHERE id = ?', [id]);
+    // const [results] = await db.query('SELECT * FROM artists WHERE id = ?', [id]);
     if (results.length === 0) return res.status(404).json({ message: 'Artist not found' });
     res.json(results[0]);
   } catch (err) {
