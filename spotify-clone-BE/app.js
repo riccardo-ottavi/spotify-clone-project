@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: "https://phenomenal-mochi-c6f252.netlify.app/",
   methods: ['GET','POST','PATCH','DELETE'],
   credentials: true
 }));
