@@ -1266,3 +1266,73 @@ footer img {
 .gray-text {
   color: #b3b3b3;
 }
+
+
+/* 🖥️ Large desktop */
+@media (max-width: 1280px) {
+
+}
+
+/* 💻 Desktop */
+@media (max-width: 1024px) {
+
+}
+
+/* 📲 Tablet */
+@media (max-width: 768px) {
+  .right-mid{
+    display: none;
+  }
+
+  .control-bar{
+    width: 150px;
+  }
+
+  .header-mid {
+    margin-left: 0;
+  }
+
+  .header{
+    margin-left: 15px;
+  }
+
+  .header-right{
+    display: none;
+  }
+
+  .search-bar input{
+    width: 570px;
+  }
+
+  .right-footer{
+    gap: 0
+  }
+
+  .right-footer input{
+    width: 60px;
+  }
+
+  .control-bar {
+    margin-left: 10px;
+  }
+
+  footer {
+    width: 100%;
+  }
+
+  .orizzontal-card{
+    width: calc((100% / 2) - 15px);
+  }
+
+}
+
+/* 📱 Mobile */
+@media (max-width: 520px) {
+  footer {
+    width: 660px;
+  }
+
+  .right-footer{
+    display: none;
+  }
+}
