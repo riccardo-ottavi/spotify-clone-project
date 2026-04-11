@@ -39,7 +39,7 @@ export default function Header() {
                 </div>
             </Link>
             <div className="header-mid">
-                <Link to={'/'}><img src="../house-solid-full.svg" alt="" /></Link>
+                <Link to={'/'}><img src="../house-solid-full.svg" alt="" className="header-house-icon" /></Link>
                 <div className="search-bar">
     <img src="../magnifying-glass-solid-full.svg" alt="" className="search-bar-icon" />
     <input

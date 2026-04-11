@@ -1324,6 +1324,18 @@ footer img {
     width: calc((100% / 2) - 15px);
   }
 
+  .detail-header-album img {
+    display: none;
+}
+
+  .container-page{
+    padding: 0;
+  }
+
+  .header-house-icon{
+    display: none;
+  }
+
 }
 
 /* 📱 Mobile */
