@@ -14,7 +14,7 @@ export default function SquaredCard({
 }: Props) {
 
     return (
-        <div className="squared-card" onClick={onClick}>
+        <div className="squared-card pointer" onClick={onClick}>
             <img
                 src={image.startsWith('http') ? image : `${import.meta.env.VITE_API_URL}${image}`}
                 alt={title}

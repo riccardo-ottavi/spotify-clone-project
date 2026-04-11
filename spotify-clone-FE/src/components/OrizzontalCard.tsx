@@ -11,7 +11,7 @@ export default function OrizzontalCard({
     onClick
 }: Props) {
     return (
-        <div className='orizzontal-card' onClick={onClick}>
+        <div className='orizzontal-card pointer' onClick={onClick}>
             <img
                 src={image.startsWith('http') ? image : `${import.meta.env.VITE_API_URL}${image}`}
                 alt={title}
