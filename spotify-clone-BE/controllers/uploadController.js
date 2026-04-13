@@ -2,6 +2,9 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const cloudinary = require("../config/cloudinary");
+if (!fs.existsSync("images")) {
+  fs.mkdirSync("images");
+}
 
 // Configurazione storage multer (temporaneo)
 const storage = multer.diskStorage({
