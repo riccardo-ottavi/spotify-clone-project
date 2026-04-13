@@ -65,9 +65,11 @@ export default function EditPlaylistModal({ playlistId, onClose }: Props) {
           <h2>Modifica dettagli</h2>
           <img
             src={
-              image?.startsWith('http')
-                ? image
-                : `${import.meta.env.VITE_API_URL}${image || ""}`
+              image
+                ? image.startsWith('http')
+                  ? image
+                  : `${import.meta.env.VITE_API_URL}${image}`
+                : ""
             }
             alt="Playlist"
             className="playlist-preview"

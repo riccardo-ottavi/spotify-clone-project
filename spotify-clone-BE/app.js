@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors({
   origin: [
-    "https://spotify-clone-project-rho.vercel.app",
+    "https://spotify-clone-project-b6r2agvdk-riccardo-ottavis-projects.vercel.app",
     "http://localhost:5173"
   ],
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
