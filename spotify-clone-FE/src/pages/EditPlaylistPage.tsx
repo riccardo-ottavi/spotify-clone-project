@@ -46,9 +46,14 @@ export default function EditPlaylistPage() {
     !playlistSongs.some(ps => ps.id === s.id)
   );
 
-  const getImageSrc = (image?: string) => {
-  if (!image) return "/images/default-song.png"; // fallback
-  return image.startsWith("http") ? image : `${import.meta.env.VITE_API_URL}${image}`;
+ const getImageSrc = (image?: string) => {
+  if (!image || typeof image !== "string") {
+    return "/images/default-song.png";
+  }
+
+  if (image.startsWith("http")) return image;
+
+  return `${import.meta.env.VITE_API_URL}${image}`;
 };
 
   return (
