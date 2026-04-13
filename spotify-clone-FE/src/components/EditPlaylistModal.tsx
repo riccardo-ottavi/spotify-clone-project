@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAudioPlayerContext } from "../contexts/AudioPlayerContext";
 
 type Props = {
@@ -15,6 +15,14 @@ export default function EditPlaylistModal({ playlistId, onClose }: Props) {
   const [image, setImage] = useState(playlist?.image || "");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    if (!playlist) return;
+
+    setTitle(playlist.name || "");
+    setDescription(playlist.notes || "");
+    setImage(playlist.image || "");
+  }, [playlist]);
 
   async function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selectedFile = e.target.files?.[0];
@@ -35,8 +43,11 @@ export default function EditPlaylistModal({ playlistId, onClose }: Props) {
         body: formData,
       });
 
+      if (!res.ok) throw new Error("Upload fallito");
+
       const data = await res.json();
 
+      if (!data.url) throw new Error("URL mancante dal backend");
 
       setImage(data.url);
     } catch (err) {
@@ -53,7 +64,11 @@ export default function EditPlaylistModal({ playlistId, onClose }: Props) {
         <div className="image-section">
           <h2>Modifica dettagli</h2>
           <img
-            src={image.startsWith('http') ? image : `${import.meta.env.VITE_API_URL}${image}`}
+            src={
+              image?.startsWith('http')
+                ? image
+                : `${import.meta.env.VITE_API_URL}${image || ""}`
+            }
             alt="Playlist"
             className="playlist-preview"
           />
@@ -83,20 +98,20 @@ export default function EditPlaylistModal({ playlistId, onClose }: Props) {
               />
             </div>
             <div className="modal-actions">
-          <button onClick={onClose}>Chiudi</button>
-          <button
-            onClick={() => {
-              updatePlaylist(playlist.id, {
-                name: title,
-                notes: description,
-                image: image
-              });
-              onClose();
-            }}
-          >
-            Salva
-          </button>
-        </div>
+              <button onClick={onClose}>Chiudi</button>
+              <button
+                onClick={() => {
+                  updatePlaylist(playlist.id, {
+                    name: title,
+                    notes: description,
+                    image: image
+                  });
+                  onClose();
+                }}
+              >
+                Salva
+              </button>
+            </div>
           </div>
         </div>
       </div>
