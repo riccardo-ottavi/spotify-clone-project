@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors({
   origin: [
-    "https://phenomenal-mochi-c6f252.netlify.app",
+    "https://spotify-clone-project-rho.vercel.app",
     "http://localhost:5173"
   ],
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
