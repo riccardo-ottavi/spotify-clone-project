@@ -12,13 +12,27 @@ const uploadRouter = require('./routers/uploadRouter');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  ".vercel.app"
+];
+
 app.use(cors({
-  origin: [
-    "https://spotify-clone-project-bydyaefnx-riccardo-ottavis-projects.vercel.app",
-    "http://localhost:5173"
-  ],
-  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (
+      allowedOrigins.some(o =>
+        o.startsWith(".")
+          ? origin.endsWith(o)
+          : origin === o
+      )
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
 
